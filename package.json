@@ -3,9 +3,15 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/web": "^0.0.151"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@datadog/datadog-api-client": "^1.26.0",
+    "@types/jest": "^29.5.12",
+    "openai": "^4.52.7"
   }
 }
