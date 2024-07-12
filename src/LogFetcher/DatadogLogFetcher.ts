@@ -55,15 +55,21 @@ export default class DatadogLogFetcher implements LogFetcher {
   async fetchLogs(query: string): Promise<string> {
     this.params!.body!.filter!.query = query
     const response = await this.apiInstance.listLogs(this.params)
-    let logs = ""
-    response.data?.forEach((log) => {
+    if (!response.data) {
+      return ""
+    }
+    const logs = this.formatLogs(response.data)
+    return logs
+  }
+  formatLogs(data: v2.Log[]): string {
+    let logs = "";
+    data.forEach((log) => {
       this.requiredAttributes.forEach((attr) => {
         const value = getNestedProperty(log, attr);
         logs += attr + ": " + value + "\n"
       })
       logs += "\n"
     })
-
-    return logs
+    return logs;
   }
 }
